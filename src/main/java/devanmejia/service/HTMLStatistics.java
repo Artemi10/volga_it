@@ -3,8 +3,12 @@ package devanmejia.service;
 import devanmejia.model.WordsStatistics;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HTMLStatistics implements FileStatistics{
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
@@ -15,7 +19,7 @@ public class HTMLStatistics implements FileStatistics{
     public HTMLStatistics(File htmlFile) {
         this.htmlFile = htmlFile;
         this.semaphore = new Semaphore(0);
-        this.executor = Executors.newFixedThreadPool(PROCESSORS / 2);
+        this.executor = Executors.newFixedThreadPool(PROCESSORS);
     }
 
     @Override
@@ -32,12 +36,19 @@ public class HTMLStatistics implements FileStatistics{
         return statistics;
     }
 
-    private int readFile(WordsStatistics statistics) throws IOException, ExecutionException, InterruptedException {
-        BufferedReader reader = new BufferedReader(new FileReader(htmlFile));
-        ForkJoinPool customThreadPool = new ForkJoinPool(PROCESSORS / 2 + PROCESSORS % 2);
-        return customThreadPool.submit(() -> reader.lines().parallel()
-                .map(line -> executor.submit(new LineWorker(line, semaphore, statistics)))
-                .count()).get().intValue();
+    private int readFile(WordsStatistics statistics) throws IOException {
+        int taskAmount = 0;
+        try (FileChannel inputChannel = new FileInputStream(htmlFile).getChannel()) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(4 * 1024);
+            while (inputChannel.read(buffer) != -1) {
+                buffer.flip();
+                String line = StandardCharsets.UTF_8.decode(buffer).toString();
+                System.out.println(line);
+                buffer.clear();
+                taskAmount++;
+            }
+        }
+        return taskAmount;
     }
 
     private static class LineWorker implements Runnable{
