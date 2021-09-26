@@ -2,6 +2,6 @@ package devanmejia.service;
 
 import devanmejia.model.WordsStatistics;
 
-public interface FileStatistics {
+public interface FileStatisticsService {
     WordsStatistics createWordsStatistic();
 }

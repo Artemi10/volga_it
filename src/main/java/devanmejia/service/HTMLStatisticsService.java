@@ -4,18 +4,19 @@ import devanmejia.model.WordsStatistics;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class HTMLStatistics implements FileStatistics{
+public class HTMLStatisticsService implements FileStatisticsService {
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final File htmlFile;
     private final Semaphore semaphore;
     private final ExecutorService executor;
 
-    public HTMLStatistics(File htmlFile) {
+    public HTMLStatisticsService(File htmlFile) {
         this.htmlFile = htmlFile;
         this.semaphore = new Semaphore(0);
-        this.executor = Executors.newFixedThreadPool(PROCESSORS / 2);
+        this.executor = Executors.newFixedThreadPool(PROCESSORS);
     }
 
     @Override
@@ -32,12 +33,18 @@ public class HTMLStatistics implements FileStatistics{
         return statistics;
     }
 
-    private int readFile(WordsStatistics statistics) throws IOException, ExecutionException, InterruptedException {
-        BufferedReader reader = new BufferedReader(new FileReader(htmlFile));
-        ForkJoinPool customThreadPool = new ForkJoinPool(PROCESSORS / 2 + PROCESSORS % 2);
-        return customThreadPool.submit(() -> reader.lines().parallel()
-                .map(line -> executor.submit(new LineWorker(line, semaphore, statistics)))
-                .count()).get().intValue();
+    private int readFile(WordsStatistics statistics) throws IOException {
+        int taskAmount = 0;
+        try (InputStream inputStream = new FileInputStream(htmlFile);
+             Scanner scanner = new Scanner(inputStream)) {
+            while (scanner.hasNext()){
+                scanner.useDelimiter(">");
+                String line = scanner.next() + ">";
+                executor.execute(new LineWorker(line, semaphore, statistics));
+                taskAmount++;
+            }
+        }
+        return taskAmount;
     }
 
     private static class LineWorker implements Runnable{
