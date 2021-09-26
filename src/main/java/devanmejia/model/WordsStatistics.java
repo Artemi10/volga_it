@@ -20,9 +20,10 @@ public class WordsStatistics {
     }
 
     @Override
-    public String toString() {
-        return stats.keySet().stream()
-                .map(key -> key + " " + stats.get(key))
+    public synchronized String toString() {
+        return stats.entrySet().stream()
+                .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
+                .map(entry -> entry.getKey() + " - " + stats.get(entry.getKey()))
                 .collect(Collectors.joining("\n"));
     }
 }

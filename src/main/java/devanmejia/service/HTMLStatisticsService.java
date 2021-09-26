@@ -38,8 +38,8 @@ public class HTMLStatisticsService implements FileStatisticsService {
         try (InputStream inputStream = new FileInputStream(htmlFile);
              Scanner scanner = new Scanner(inputStream)) {
             while (scanner.hasNext()){
-                scanner.useDelimiter(">");
-                String line = scanner.next() + ">";
+                scanner.useDelimiter("</.*?>");
+                String line = scanner.next() + "</tag>";
                 executor.execute(new LineWorker(line, semaphore, statistics));
                 taskAmount++;
             }
