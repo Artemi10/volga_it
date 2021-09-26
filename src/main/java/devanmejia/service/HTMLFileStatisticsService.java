@@ -7,28 +7,27 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class HTMLStatisticsService implements FileStatisticsService {
+public class HTMLFileStatisticsService implements FileStatisticsService {
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final File htmlFile;
     private final Semaphore semaphore;
     private final ExecutorService executor;
 
-    public HTMLStatisticsService(File htmlFile) {
+    public HTMLFileStatisticsService(File htmlFile) {
         this.htmlFile = htmlFile;
         this.semaphore = new Semaphore(0);
         this.executor = Executors.newFixedThreadPool(PROCESSORS);
     }
 
     @Override
-    public WordsStatistics createWordsStatistic() {
+    public WordsStatistics createWordsStatistic() throws IOException {
         WordsStatistics statistics = new WordsStatistics();
-        try{
-            int lineAmount = readFile(statistics);
-            executor.shutdown();
+        int lineAmount = readFile(statistics);
+        executor.shutdown();
+        try {
             semaphore.acquire(lineAmount);
-        } catch (Exception e){
-            // TODO
-            e.printStackTrace();
+        } catch (InterruptedException e) {
+            //TODO
         }
         return statistics;
     }
