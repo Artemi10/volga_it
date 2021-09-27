@@ -1,8 +1,6 @@
-package devanmejia.repository.loggers;
+package devanmejia.repository;
 
 import devanmejia.model.Stats;
-import devanmejia.repository.StatsRepository;
-import devanmejia.service.loggers.FileServiceExceptionLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,16 +9,16 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class StatsRepositoryExceptionLogger implements StatsRepository {
+class StatsRepositoryExceptionLogger implements StatsRepository {
     private static final String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {
-        try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
+        try(InputStream inputStream = StatsRepositoryExceptionLogger.class.getResourceAsStream(FILE_NAME)){
             LogManager.getLogManager().readConfiguration(inputStream);
         }catch (IOException e){
             System.err.printf("Can not find %s file. Create standard logger\n", FILE_NAME);
         }
-        LOGGER = Logger.getLogger(FileServiceExceptionLogger.class.getName());
+        LOGGER = Logger.getLogger(StatsRepositoryExceptionLogger.class.getName());
     }
 
     private final StatsRepository statsRepository;

@@ -4,7 +4,7 @@ import devanmejia.model.Stats;
 
 import java.util.Optional;
 
-public class StatsRepositoryImpl implements StatsRepository {
+class StatsRepositoryImpl implements StatsRepository {
     private static final StatsRepository INSTANCE = new StatsRepositoryImpl();
 
     private StatsRepositoryImpl() {}

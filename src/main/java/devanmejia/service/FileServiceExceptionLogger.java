@@ -1,13 +1,13 @@
-package devanmejia.service.loggers;
+package devanmejia.service;
 
 import devanmejia.model.Stats;
-import devanmejia.service.FileService;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.*;
 
 
-public class FileServiceExceptionLogger implements FileService {
+class FileServiceExceptionLogger implements FileService {
     private static final String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class HTMLFileService implements FileService {
+class HTMLFileService implements FileService {
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final File htmlFile;
     private final Semaphore semaphore;
