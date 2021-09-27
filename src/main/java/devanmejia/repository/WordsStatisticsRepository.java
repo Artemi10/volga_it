@@ -1,11 +1,11 @@
 package devanmejia.repository;
 
-import devanmejia.model.WordsStatistics;
+import devanmejia.model.WordsStats;
 
 import java.util.Optional;
 
 public interface WordsStatisticsRepository {
-    void save(WordsStatistics word);
-    Optional<WordsStatistics> getById(int id);
-    void delete(WordsStatistics word);
+    void save(WordsStats word);
+    Optional<WordsStats> getById(int id);
+    void delete(WordsStats word);
 }

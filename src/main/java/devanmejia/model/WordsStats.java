@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class WordsStatistics {
+public class WordsStats {
     private final ConcurrentHashMap<String, Integer> stats;
 
-    public WordsStatistics() {
+    public WordsStats() {
         this.stats = new ConcurrentHashMap<>();
     }
 

@@ -1,27 +1,27 @@
 package devanmejia.service;
 
-import devanmejia.model.WordsStatistics;
+import devanmejia.model.WordsStats;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class HTMLFileStatisticsService implements FileStatisticsService {
+public class HTMLFileStatsService implements FileStatsService {
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final File htmlFile;
     private final Semaphore semaphore;
     private final ExecutorService executor;
 
-    public HTMLFileStatisticsService(File htmlFile) {
+    public HTMLFileStatsService(File htmlFile) {
         this.htmlFile = htmlFile;
         this.semaphore = new Semaphore(0);
         this.executor = Executors.newFixedThreadPool(PROCESSORS);
     }
 
     @Override
-    public WordsStatistics createWordsStatistic() throws IOException {
-        WordsStatistics statistics = new WordsStatistics();
+    public WordsStats createWordsStatistic() throws IOException {
+        WordsStats statistics = new WordsStats();
         int lineAmount = readFile(statistics);
         executor.shutdown();
         try {
@@ -32,7 +32,7 @@ public class HTMLFileStatisticsService implements FileStatisticsService {
         return statistics;
     }
 
-    private int readFile(WordsStatistics statistics) throws IOException {
+    private int readFile(WordsStats statistics) throws IOException {
         int taskAmount = 0;
         try (InputStream inputStream = new FileInputStream(htmlFile);
              Scanner scanner = new Scanner(inputStream)) {
@@ -49,9 +49,9 @@ public class HTMLFileStatisticsService implements FileStatisticsService {
     private static class LineWorker implements Runnable{
         private final String line;
         private final Semaphore semaphore;
-        private final WordsStatistics statistics;
+        private final WordsStats statistics;
 
-        public LineWorker(String line, Semaphore semaphore, WordsStatistics statistics) {
+        public LineWorker(String line, Semaphore semaphore, WordsStats statistics) {
             this.line = line;
             this.semaphore = semaphore;
             this.statistics = statistics;

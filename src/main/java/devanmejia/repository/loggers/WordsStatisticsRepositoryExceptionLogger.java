@@ -1,6 +1,6 @@
 package devanmejia.repository.loggers;
 
-import devanmejia.model.WordsStatistics;
+import devanmejia.model.WordsStats;
 import devanmejia.repository.WordsStatisticsRepository;
 
 import java.util.Optional;
@@ -15,17 +15,17 @@ public class WordsStatisticsRepositoryExceptionLogger implements WordsStatistics
     //TODO
 
     @Override
-    public void save(WordsStatistics word) {
+    public void save(WordsStats word) {
 
     }
 
     @Override
-    public Optional<WordsStatistics> getById(int id) {
+    public Optional<WordsStats> getById(int id) {
         return Optional.empty();
     }
 
     @Override
-    public void delete(WordsStatistics word) {
+    public void delete(WordsStats word) {
 
     }
 }

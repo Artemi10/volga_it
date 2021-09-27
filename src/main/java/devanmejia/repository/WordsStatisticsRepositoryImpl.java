@@ -1,6 +1,6 @@
 package devanmejia.repository;
 
-import devanmejia.model.WordsStatistics;
+import devanmejia.model.WordsStats;
 
 import java.util.Optional;
 
@@ -14,17 +14,17 @@ public class WordsStatisticsRepositoryImpl implements WordsStatisticsRepository 
     }
 
     @Override
-    public void save(WordsStatistics word) {
+    public void save(WordsStats word) {
 
     }
 
     @Override
-    public Optional<WordsStatistics> getById(int id) {
+    public Optional<WordsStats> getById(int id) {
         return Optional.empty();
     }
 
     @Override
-    public void delete(WordsStatistics word) {
+    public void delete(WordsStats word) {
 
     }
 }
