@@ -28,9 +28,9 @@ class StatsRepositoryEventsLogger implements StatsRepository {
     }
 
     @Override
-    public void save(Stats word) {
+    public void save(Stats stats) {
         LOGGER.log(Level.INFO, "Saving word statistics");
-        statsRepository.save(word);
+        statsRepository.save(stats);
         LOGGER.log(Level.INFO, "Word statistics was successfully saved");
     }
 
@@ -43,9 +43,9 @@ class StatsRepositoryEventsLogger implements StatsRepository {
     }
 
     @Override
-    public void delete(Stats word) {
+    public void delete(Stats stats) {
         LOGGER.log(Level.INFO, "Deleting word statistics");
-        statsRepository.delete(word);
+        statsRepository.delete(stats);
         LOGGER.log(Level.INFO, "Word statistics was successfully deleted");
     }
 }

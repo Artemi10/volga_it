@@ -14,7 +14,7 @@ class StatsRepositoryImpl implements StatsRepository {
     }
 
     @Override
-    public void save(Stats word) {
+    public void save(Stats stats) {
         throw new IllegalArgumentException("Unsupported");
     }
 
@@ -24,7 +24,7 @@ class StatsRepositoryImpl implements StatsRepository {
     }
 
     @Override
-    public void delete(Stats word) {
+    public void delete(Stats stats) {
 
     }
 }

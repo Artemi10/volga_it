@@ -28,9 +28,9 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public void save(Stats word) {
+    public void save(Stats stats) {
         try{
-            statsRepository.save(word);
+            statsRepository.save(stats);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during saving word statistics",  e);
             throw e;
@@ -48,9 +48,9 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public void delete(Stats word) {
+    public void delete(Stats stats) {
         try{
-            statsRepository.delete(word);
+            statsRepository.delete(stats);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during deleting word statistics",  e);
             throw e;
