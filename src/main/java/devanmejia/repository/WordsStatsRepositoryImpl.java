@@ -4,12 +4,12 @@ import devanmejia.model.WordsStats;
 
 import java.util.Optional;
 
-public class WordsStatisticsRepositoryImpl implements WordsStatisticsRepository {
-    private static final WordsStatisticsRepository INSTANCE = new WordsStatisticsRepositoryImpl();
+public class WordsStatsRepositoryImpl implements WordsStatsRepository {
+    private static final WordsStatsRepository INSTANCE = new WordsStatsRepositoryImpl();
 
-    private WordsStatisticsRepositoryImpl() {}
+    private WordsStatsRepositoryImpl() {}
 
-    public static WordsStatisticsRepository getInstance(){
+    public static WordsStatsRepository getInstance(){
         return INSTANCE;
     }
 
