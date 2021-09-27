@@ -1,5 +1,7 @@
 package devanmejia.model;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -19,10 +21,14 @@ public class WordsStatistics {
         }
     }
 
+    public Map<String, Integer> getStats() {
+        return Collections.unmodifiableMap(stats);
+    }
+
     @Override
     public synchronized String toString() {
-        return stats.entrySet().stream()
-                .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
+        return getStats().entrySet().stream()
+                .sorted((k1, k2) -> - k1.getValue().compareTo(k2.getValue()))
                 .map(entry -> entry.getKey() + " - " + stats.get(entry.getKey()))
                 .collect(Collectors.joining("\n"));
     }
