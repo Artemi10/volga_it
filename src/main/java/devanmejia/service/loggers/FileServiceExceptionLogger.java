@@ -1,34 +1,34 @@
 package devanmejia.service.loggers;
 
-import devanmejia.model.WordsStats;
-import devanmejia.service.FileStatsService;
+import devanmejia.model.Stats;
+import devanmejia.service.FileService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.*;
 
 
-public class FileStatsServiceExceptionLogger implements FileStatsService {
+public class FileServiceExceptionLogger implements FileService {
     private static final String FILE_NAME = "logger.config";
     private static final Logger LOGGER;
     static {
-        try(InputStream inputStream = FileStatsServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
+        try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
             LogManager.getLogManager().readConfiguration(inputStream);
         }catch (IOException e){
             System.err.printf("Can not find %s file. Create standard logger", FILE_NAME);
         }
-        LOGGER = Logger.getLogger(FileStatsServiceExceptionLogger.class.getName());
+        LOGGER = Logger.getLogger(FileServiceExceptionLogger.class.getName());
     }
 
-    private final FileStatsService fileStatsService;
+    private final FileService fileService;
 
-    public FileStatsServiceExceptionLogger(FileStatsService fileStatsService) {
-        this.fileStatsService = fileStatsService;
+    public FileServiceExceptionLogger(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @Override
-    public WordsStats createWordsStatistic() throws IOException {
+    public Stats createWordsStatistic() throws IOException {
         try {
-            return fileStatsService.createWordsStatistic();
+            return fileService.createWordsStatistic();
         }
         catch (IOException e){
             LOGGER.log(Level.WARNING, "IOException",  e);

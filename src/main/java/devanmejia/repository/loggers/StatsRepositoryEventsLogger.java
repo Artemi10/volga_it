@@ -1,8 +1,8 @@
 package devanmejia.repository.loggers;
 
-import devanmejia.model.WordsStats;
-import devanmejia.repository.WordsStatsRepository;
-import devanmejia.service.loggers.FileStatsServiceExceptionLogger;
+import devanmejia.model.Stats;
+import devanmejia.repository.StatsRepository;
+import devanmejia.service.loggers.FileServiceExceptionLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,43 +11,43 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class WordsStatsRepositoryEventsLogger implements WordsStatsRepository {
+public class StatsRepositoryEventsLogger implements StatsRepository {
     private static final String FILE_NAME = "logger.config";
     private static final Logger LOGGER;
     static {
-        try(InputStream inputStream = FileStatsServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
+        try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
             LogManager.getLogManager().readConfiguration(inputStream);
         }catch (IOException e){
             System.err.printf("Can not find %s file. Create standard logger", FILE_NAME);
         }
-        LOGGER = Logger.getLogger(FileStatsServiceExceptionLogger.class.getName());
+        LOGGER = Logger.getLogger(FileServiceExceptionLogger.class.getName());
     }
 
-    private final WordsStatsRepository wordsStatsRepository;
+    private final StatsRepository statsRepository;
 
-    public WordsStatsRepositoryEventsLogger(WordsStatsRepository wordsStatsRepository) {
-        this.wordsStatsRepository = wordsStatsRepository;
+    public StatsRepositoryEventsLogger(StatsRepository statsRepository) {
+        this.statsRepository = statsRepository;
     }
 
     @Override
-    public void save(WordsStats word) {
+    public void save(Stats word) {
         LOGGER.log(Level.INFO, "Saving word statistics");
-        wordsStatsRepository.save(word);
+        statsRepository.save(word);
         LOGGER.log(Level.INFO, "Word statistics was successfully saved");
     }
 
     @Override
-    public Optional<WordsStats> getById(int id) {
+    public Optional<Stats> getById(int id) {
         LOGGER.log(Level.INFO, "Getting word statistics");
-        Optional<WordsStats> wordsStats = wordsStatsRepository.getById(id);
+        Optional<Stats> wordsStats = statsRepository.getById(id);
         LOGGER.log(Level.INFO, "Word statistics was successfully got");
         return wordsStats;
     }
 
     @Override
-    public void delete(WordsStats word) {
+    public void delete(Stats word) {
         LOGGER.log(Level.INFO, "Deleting word statistics");
-        wordsStatsRepository.delete(word);
+        statsRepository.delete(word);
         LOGGER.log(Level.INFO, "Word statistics was successfully deleted");
     }
 }

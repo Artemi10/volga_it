@@ -1,8 +1,8 @@
 package devanmejia.repository.loggers;
 
-import devanmejia.model.WordsStats;
-import devanmejia.repository.WordsStatsRepository;
-import devanmejia.service.loggers.FileStatsServiceExceptionLogger;
+import devanmejia.model.Stats;
+import devanmejia.repository.StatsRepository;
+import devanmejia.service.loggers.FileServiceExceptionLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,28 +11,28 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class WordsStatsRepositoryExceptionLogger implements WordsStatsRepository {
+public class StatsRepositoryExceptionLogger implements StatsRepository {
     private static final String FILE_NAME = "logger.config";
     private static final Logger LOGGER;
     static {
-        try(InputStream inputStream = FileStatsServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
+        try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
             LogManager.getLogManager().readConfiguration(inputStream);
         }catch (IOException e){
             System.err.printf("Can not find %s file. Create standard logger", FILE_NAME);
         }
-        LOGGER = Logger.getLogger(FileStatsServiceExceptionLogger.class.getName());
+        LOGGER = Logger.getLogger(FileServiceExceptionLogger.class.getName());
     }
 
-    private final WordsStatsRepository wordsStatsRepository;
+    private final StatsRepository statsRepository;
 
-    public WordsStatsRepositoryExceptionLogger(WordsStatsRepository wordsStatsRepository) {
-        this.wordsStatsRepository = wordsStatsRepository;
+    public StatsRepositoryExceptionLogger(StatsRepository statsRepository) {
+        this.statsRepository = statsRepository;
     }
 
     @Override
-    public void save(WordsStats word) {
+    public void save(Stats word) {
         try{
-            wordsStatsRepository.save(word);
+            statsRepository.save(word);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during saving word statistics",  e);
             throw e;
@@ -40,9 +40,9 @@ public class WordsStatsRepositoryExceptionLogger implements WordsStatsRepository
     }
 
     @Override
-    public Optional<WordsStats> getById(int id) {
+    public Optional<Stats> getById(int id) {
         try{
-            return wordsStatsRepository.getById(id);
+            return statsRepository.getById(id);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during getting word statistics",  e);
             throw e;
@@ -50,9 +50,9 @@ public class WordsStatsRepositoryExceptionLogger implements WordsStatsRepository
     }
 
     @Override
-    public void delete(WordsStats word) {
+    public void delete(Stats word) {
         try{
-            wordsStatsRepository.delete(word);
+            statsRepository.delete(word);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during deleting word statistics",  e);
             throw e;

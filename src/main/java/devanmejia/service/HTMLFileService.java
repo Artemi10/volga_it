@@ -1,27 +1,27 @@
 package devanmejia.service;
 
-import devanmejia.model.WordsStats;
+import devanmejia.model.Stats;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class HTMLFileStatsService implements FileStatsService {
+public class HTMLFileService implements FileService {
     private static final int PROCESSORS = Runtime.getRuntime().availableProcessors();
     private final File htmlFile;
     private final Semaphore semaphore;
     private final ExecutorService executor;
 
-    public HTMLFileStatsService(File htmlFile) {
+    public HTMLFileService(File htmlFile) {
         this.htmlFile = htmlFile;
         this.semaphore = new Semaphore(0);
         this.executor = Executors.newFixedThreadPool(PROCESSORS);
     }
 
     @Override
-    public WordsStats createWordsStatistic() throws IOException {
-        WordsStats statistics = new WordsStats();
+    public Stats createWordsStatistic() throws IOException {
+        Stats statistics = new Stats();
         int lineAmount = readFile(statistics);
         executor.shutdown();
         try {
@@ -32,7 +32,7 @@ public class HTMLFileStatsService implements FileStatsService {
         return statistics;
     }
 
-    private int readFile(WordsStats statistics) throws IOException {
+    private int readFile(Stats statistics) throws IOException {
         int taskAmount = 0;
         try (InputStream inputStream = new FileInputStream(htmlFile);
              Scanner scanner = new Scanner(inputStream)) {
@@ -49,9 +49,9 @@ public class HTMLFileStatsService implements FileStatsService {
     private static class LineWorker implements Runnable{
         private final String line;
         private final Semaphore semaphore;
-        private final WordsStats statistics;
+        private final Stats statistics;
 
-        public LineWorker(String line, Semaphore semaphore, WordsStats statistics) {
+        public LineWorker(String line, Semaphore semaphore, Stats statistics) {
             this.line = line;
             this.semaphore = semaphore;
             this.statistics = statistics;
