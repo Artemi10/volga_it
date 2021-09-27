@@ -77,7 +77,7 @@ class StatsRepositoryImpl implements StatsRepository {
             words.put(resultSet.getString(1), resultSet.getInt(2));
         }
         if (!words.isEmpty()){
-            File htmlFile = new File(resultSet.getString(3));
+            File htmlFile = new File(path);
             return Optional.of(new Stats(htmlFile, words));
         }
         return Optional.empty();

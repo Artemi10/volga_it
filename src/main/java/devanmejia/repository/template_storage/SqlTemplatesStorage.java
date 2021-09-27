@@ -10,15 +10,15 @@ public class SqlTemplatesStorage {
     private SqlTemplatesStorage() {
         templateStorage = new HashMap<>();
         templateStorage.put(SqlType.INSERT_DOCUMENT.name(),
-                "INSERT INTO my_schema.documents (path) VALUE (?);");
+                "INSERT INTO documents (path) VALUE (?);");
         templateStorage.put(SqlType.INSERT_STATS.name(),
-                "INSERT INTO my_schema.statistics \n" +
+                "INSERT INTO statistics \n" +
                 "(word, amount, document_id) VALUE (?, ?, ?);");
         templateStorage.put(SqlType.SELECT_STATS.name(),
                 "SELECT word, amount, path \n" +
-                "FROM my_schema.statistics \n" +
+                "FROM statistics \n" +
                 "LEFT JOIN documents d on d.id = statistics.document_id \n" +
-                "WHERE document_id = ?;");
+                "WHERE path = ?;");
     }
 
     public static SqlTemplatesStorage getInstance(){
