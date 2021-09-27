@@ -42,11 +42,4 @@ class StatsRepositoryEventsLogger implements StatsRepository {
         LOGGER.log(Level.INFO, "Word statistics was successfully got");
         return wordsStats;
     }
-
-    @Override
-    public void delete(String path) {
-        LOGGER.log(Level.INFO, "Deleting word statistics");
-        statsRepository.delete(path);
-        LOGGER.log(Level.INFO, "Word statistics was successfully deleted");
-    }
 }

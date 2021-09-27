@@ -83,11 +83,6 @@ class StatsRepositoryImpl implements StatsRepository {
         return Optional.empty();
     }
 
-    @Override
-    public void delete(String path) {
-
-    }
-
     private static Properties loadDBConfigProperties(){
         try {
             Properties properties = new Properties();

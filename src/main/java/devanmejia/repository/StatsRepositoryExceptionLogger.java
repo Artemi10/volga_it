@@ -47,14 +47,4 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
             throw e;
         }
     }
-
-    @Override
-    public void delete(String path) {
-        try{
-            statsRepository.delete(path);
-        }catch (Exception e){
-            LOGGER.log(Level.WARNING, "Exception during deleting word statistics",  e);
-            throw e;
-        }
-    }
 }
