@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface StatsRepository {
     void save(Stats stats) throws SQLException;
-    Optional<Stats> getByPath(String path);
+    Optional<Stats> getByPath(String path) throws SQLException;
     void delete(String path);
 }

@@ -39,7 +39,7 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public Optional<Stats> getByPath(String path) {
+    public Optional<Stats> getByPath(String path) throws SQLException {
         try{
             return statsRepository.getByPath(path);
         }catch (Exception e){

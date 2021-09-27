@@ -15,6 +15,11 @@ public class Stats {
         this.words = new ConcurrentHashMap<>();
     }
 
+    public Stats(File htmlFile, Map<String, Integer> words) {
+        this.htmlFile = htmlFile;
+        this.words = new ConcurrentHashMap<>(words);
+    }
+
     public void addWord(java.lang.String word){
         Integer previousValue = words.putIfAbsent(word, 1);
         synchronized (this){
