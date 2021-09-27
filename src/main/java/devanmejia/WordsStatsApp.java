@@ -8,10 +8,11 @@ import devanmejia.service.FileServiceFactory;
 import devanmejia.service.type.FileType;
 
 import java.io.*;
+import java.sql.SQLException;
 
 public class WordsStatsApp {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(java.lang.String[] args) throws IOException, SQLException {
         File file = new File("C:\\Users\\lyaha\\OneDrive\\Рабочий стол\\volga_it\\file3.html");
         FileService fileService = FileServiceFactory.createService(file, FileType.HTML);
         Stats stats = fileService.createWordsStatistic();

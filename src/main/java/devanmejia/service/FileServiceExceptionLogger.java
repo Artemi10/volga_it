@@ -8,7 +8,7 @@ import java.util.logging.*;
 
 
 class FileServiceExceptionLogger implements FileService {
-    private static final String FILE_NAME = "/logger.config";
+    private static final java.lang.String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {
         try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){

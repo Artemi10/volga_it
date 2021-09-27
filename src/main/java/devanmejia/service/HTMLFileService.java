@@ -21,7 +21,7 @@ class HTMLFileService implements FileService {
 
     @Override
     public Stats createWordsStatistic() throws IOException {
-        Stats statistics = new Stats();
+        Stats statistics = new Stats(htmlFile);
         int lineAmount = readFile(statistics);
         executor.shutdown();
         try {
@@ -38,7 +38,7 @@ class HTMLFileService implements FileService {
              Scanner scanner = new Scanner(inputStream)) {
             while (scanner.hasNext()){
                 scanner.useDelimiter("</.*?>");
-                String line = scanner.next() + "</tag>";
+                java.lang.String line = scanner.next() + "</tag>";
                 executor.execute(new LineWorker(line, semaphore, statistics));
                 taskAmount++;
             }
@@ -47,11 +47,11 @@ class HTMLFileService implements FileService {
     }
 
     private static class LineWorker implements Runnable{
-        private final String line;
+        private final java.lang.String line;
         private final Semaphore semaphore;
         private final Stats statistics;
 
-        public LineWorker(String line, Semaphore semaphore, Stats statistics) {
+        public LineWorker(java.lang.String line, Semaphore semaphore, Stats statistics) {
             this.line = line;
             this.semaphore = semaphore;
             this.statistics = statistics;

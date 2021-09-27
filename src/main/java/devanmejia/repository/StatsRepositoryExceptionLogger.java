@@ -4,13 +4,14 @@ import devanmejia.model.Stats;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 class StatsRepositoryExceptionLogger implements StatsRepository {
-    private static final String FILE_NAME = "/logger.config";
+    private static final java.lang.String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {
         try(InputStream inputStream = StatsRepositoryExceptionLogger.class.getResourceAsStream(FILE_NAME)){
@@ -28,7 +29,7 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public void save(Stats stats) {
+    public void save(Stats stats) throws SQLException {
         try{
             statsRepository.save(stats);
         }catch (Exception e){
@@ -38,9 +39,9 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public Optional<Stats> getById(int id) {
+    public Optional<Stats> getByPath(String path) {
         try{
-            return statsRepository.getById(id);
+            return statsRepository.getByPath(path);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during getting word statistics",  e);
             throw e;
@@ -48,9 +49,9 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
-    public void delete(Stats stats) {
+    public void delete(String path) {
         try{
-            statsRepository.delete(stats);
+            statsRepository.delete(path);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Exception during deleting word statistics",  e);
             throw e;
