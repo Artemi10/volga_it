@@ -15,7 +15,7 @@ public class StatsRepositoryImpl implements StatsRepository {
 
     @Override
     public void save(Stats word) {
-
+        throw new IllegalArgumentException("Unsupported");
     }
 
     @Override

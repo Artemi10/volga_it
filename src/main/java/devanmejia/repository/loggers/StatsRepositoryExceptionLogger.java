@@ -12,13 +12,13 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class StatsRepositoryExceptionLogger implements StatsRepository {
-    private static final String FILE_NAME = "logger.config";
+    private static final String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {
         try(InputStream inputStream = FileServiceExceptionLogger.class.getResourceAsStream(FILE_NAME)){
             LogManager.getLogManager().readConfiguration(inputStream);
         }catch (IOException e){
-            System.err.printf("Can not find %s file. Create standard logger", FILE_NAME);
+            System.err.printf("Can not find %s file. Create standard logger\n", FILE_NAME);
         }
         LOGGER = Logger.getLogger(FileServiceExceptionLogger.class.getName());
     }
