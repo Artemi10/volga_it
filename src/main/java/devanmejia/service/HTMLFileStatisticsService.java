@@ -27,7 +27,7 @@ public class HTMLFileStatisticsService implements FileStatisticsService {
         try {
             semaphore.acquire(lineAmount);
         } catch (InterruptedException e) {
-            //TODO
+            executor.shutdownNow();
         }
         return statistics;
     }
