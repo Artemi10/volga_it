@@ -39,13 +39,13 @@ class StatsTest {
     }
 
     @Test
-    public void testAddWord(){
+    public void add_words_test(){
         testWords.forEach(stats::addWord);
         assertTrue(mapEquals(expectedWordsMap, stats.getWords()));
     }
 
     @Test
-    public void testAddWordConcurrent() throws InterruptedException {
+    public void add_words_concurrent_test() throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(10);
         CountDownLatch latch = new CountDownLatch(10);
         testWords.forEach(word -> {
@@ -59,7 +59,7 @@ class StatsTest {
     }
 
     @Test
-    public void testToStringSorted(){
+    public void to_string_sorted_test(){
         testWordsToSort.forEach(stats::addWord);
         String expected = "hello - 3\n" +
                 "are - 2\n" +
@@ -68,7 +68,7 @@ class StatsTest {
     }
 
     @Test
-    public void testGetPath(){
+    public void get_path_test(){
         String expected = "C:\\test.txt";
         assertEquals(expected, stats.getPath());
     }
