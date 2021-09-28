@@ -123,7 +123,7 @@ class StatsRepositoryImpl implements StatsRepository {
         try {
             Properties properties = new Properties();
             InputStream inputStream = StatsRepositoryImpl.class
-                    .getResourceAsStream("/config/database.properties");
+                    .getResourceAsStream("/database.properties");
             properties.load(inputStream);
             return properties;
         } catch (IOException e){

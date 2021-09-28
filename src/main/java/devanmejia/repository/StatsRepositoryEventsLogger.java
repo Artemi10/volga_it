@@ -11,7 +11,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 class StatsRepositoryEventsLogger implements StatsRepository {
-    private static final java.lang.String FILE_NAME = "/config/logger.config";
+    private static final java.lang.String FILE_NAME = "/logger.config";
     private static final Logger LOGGER;
     static {
         try(InputStream inputStream = StatsRepositoryEventsLogger.class.getResourceAsStream(FILE_NAME)){
