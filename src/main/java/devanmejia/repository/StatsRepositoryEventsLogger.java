@@ -37,9 +37,16 @@ class StatsRepositoryEventsLogger implements StatsRepository {
 
     @Override
     public Optional<Stats> getByPath(String path) throws SQLException {
-        LOGGER.log(Level.INFO, "Getting word statistics");
+        LOGGER.log(Level.INFO, "Selecting word statistics");
         Optional<Stats> wordsStats = statsRepository.getByPath(path);
-        LOGGER.log(Level.INFO, "Word statistics was successfully got");
+        LOGGER.log(Level.INFO, "Word statistics was successfully selected");
         return wordsStats;
+    }
+
+    @Override
+    public void delete(String path) throws SQLException {
+        LOGGER.log(Level.INFO, "Deleting word statistics");
+        statsRepository.delete(path);
+        LOGGER.log(Level.INFO, "Word statistics was successfully deleted");
     }
 }

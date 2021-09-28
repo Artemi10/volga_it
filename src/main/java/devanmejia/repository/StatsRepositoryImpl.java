@@ -53,11 +53,11 @@ class StatsRepositoryImpl implements StatsRepository {
         return resultSet.getLong(1);
     }
 
-    private void saveStats(Map<java.lang.String, Integer> words, long documentId) throws SQLException {
+    private void saveStats(Map<String, Integer> words, long documentId) throws SQLException {
         String insertStatQuery = templatesStorage.getTemplate(SqlType.INSERT_STATS);
         PreparedStatement statement = connection
                 .prepareStatement(insertStatQuery, Statement.RETURN_GENERATED_KEYS);
-        for (Map.Entry<java.lang.String, Integer> entry : words.entrySet()){
+        for (Map.Entry<String, Integer> entry : words.entrySet()){
             statement.setString(1, entry.getKey());
             statement.setInt(2, entry.getValue());
             statement.setLong(3, documentId);
@@ -83,6 +83,14 @@ class StatsRepositoryImpl implements StatsRepository {
         return Optional.empty();
     }
 
+    @Override
+    public void delete(String path) throws SQLException {
+        String deleteStatQuery = templatesStorage.getTemplate(SqlType.DELETE_STATS);
+        PreparedStatement statement = connection.prepareStatement(deleteStatQuery);
+        statement.setString(1, path);
+        statement.execute();
+    }
+
     private static Properties loadDBConfigProperties(){
         try {
             Properties properties = new Properties();
@@ -95,4 +103,5 @@ class StatsRepositoryImpl implements StatsRepository {
             throw new IllegalArgumentException(message);
         }
     }
+
 }

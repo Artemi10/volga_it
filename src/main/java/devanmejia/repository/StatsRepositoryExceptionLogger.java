@@ -43,7 +43,17 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
         try{
             return statsRepository.getByPath(path);
         }catch (Exception e){
-            LOGGER.log(Level.WARNING, "Exception during getting word statistics",  e);
+            LOGGER.log(Level.WARNING, "Exception during selecting word statistics",  e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void delete(String path) throws SQLException {
+        try{
+            statsRepository.delete(path);
+        }catch (Exception e){
+            LOGGER.log(Level.WARNING, "Exception during deleting word statistics",  e);
             throw e;
         }
     }

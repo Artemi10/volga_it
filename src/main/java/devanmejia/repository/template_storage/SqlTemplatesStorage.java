@@ -20,10 +20,7 @@ public class SqlTemplatesStorage {
                 "LEFT JOIN documents d on d.id = statistics.document_id \n" +
                 "WHERE path = ?;");
         templateStorage.put(SqlType.DELETE_STATS.name(),
-                "SELECT word, amount, path \n" +
-                        "FROM statistics \n" +
-                        "LEFT JOIN documents d on d.id = statistics.document_id \n" +
-                        "WHERE path = ?;");
+                "DELETE FROM documents WHERE path = ?;");
     }
 
     public static SqlTemplatesStorage getInstance(){

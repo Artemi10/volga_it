@@ -18,6 +18,7 @@ public class WordsStatsApp {
         Stats stats = fileService.createWordsStatistic();
         System.out.println(stats);
         StatsRepository repository = StatsRepositoryFactory.createRepository();
+//        repository.delete("C:\\Users\\lyaha\\OneDrive\\Рабочий стол\\volga_it\\file7.html");
         repository.save(stats);
     }
 }
