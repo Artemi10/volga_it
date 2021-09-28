@@ -9,7 +9,7 @@ public class HTMLLineParser implements LineParser {
     public Stream<String> parse(String line){
         line += "</tag>";
         return Arrays.stream(line.replaceAll("<.*?>", "")
-                        .split("&(.*);|\\s|[^a-zA-Z0-9А-Яа-я]"))
+                        .split("&([^;]*);|\\s|[^a-zA-Z0-9А-Яа-я]"))
                 .filter(word -> !word.trim().equals(""));
     }
 }
