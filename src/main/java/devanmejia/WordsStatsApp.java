@@ -8,16 +8,26 @@ import devanmejia.service.FileServiceFactory;
 import devanmejia.service.type.FileType;
 
 import java.io.*;
-import java.sql.SQLException;
 
 public class WordsStatsApp {
 
-    public static void main(java.lang.String[] args) throws IOException, SQLException {
-        File file = new File("C:\\Users\\lyaha\\OneDrive\\Рабочий стол\\volga_it\\file3.html");
-        FileService fileService = FileServiceFactory.createService(file, FileType.HTML);
-        Stats stats = fileService.createWordsStatistic();
-        System.out.println(stats.toStringSorted());
-        StatsRepository repository = StatsRepositoryFactory.createRepository();
-        repository.update(stats);
+    public static void main(String[] args) {
+        System.out.println("Write html file path...");
+        try{
+            File file = new File(readLine());
+            FileService fileService = FileServiceFactory.createService(file, FileType.HTML);
+            Stats stats = fileService.getWordsStatistic();
+            System.out.println(stats.toStringSorted());
+            StatsRepository repository = StatsRepositoryFactory.createRepository();
+            repository.update(stats);
+        } catch (Exception e){
+           e.printStackTrace();
+        }
+    }
+
+    private static String readLine() throws IOException {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
+            return  reader.readLine();
+        }
     }
 }

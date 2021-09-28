@@ -29,7 +29,7 @@ abstract class AbstractFileService implements FileService {
     }
 
     @Override
-    public Stats createWordsStatistic() throws IOException {
+    public Stats getWordsStatistic() throws IOException {
         Stats statistics = new Stats(htmlFile);
         int lineAmount = readFile(statistics);
         executor.shutdown();

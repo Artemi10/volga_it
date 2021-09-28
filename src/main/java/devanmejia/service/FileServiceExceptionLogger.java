@@ -26,9 +26,9 @@ class FileServiceExceptionLogger implements FileService {
     }
 
     @Override
-    public Stats createWordsStatistic() throws IOException {
+    public Stats getWordsStatistic() throws IOException {
         try {
-            return fileService.createWordsStatistic();
+            return fileService.getWordsStatistic();
         }
         catch (IOException e){
             LOGGER.log(Level.WARNING, "IOException",  e);

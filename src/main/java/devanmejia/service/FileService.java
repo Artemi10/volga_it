@@ -5,5 +5,5 @@ import devanmejia.model.Stats;
 import java.io.IOException;
 
 public interface FileService {
-    Stats createWordsStatistic() throws IOException;
+    Stats getWordsStatistic() throws IOException;
 }
