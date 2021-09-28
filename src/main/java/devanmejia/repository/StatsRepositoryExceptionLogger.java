@@ -49,6 +49,16 @@ class StatsRepositoryExceptionLogger implements StatsRepository {
     }
 
     @Override
+    public void update(Stats stats) throws SQLException {
+        try{
+            statsRepository.update(stats);
+        }catch (Exception e){
+            LOGGER.log(Level.WARNING, "Exception during updating word statistics",  e);
+            throw e;
+        }
+    }
+
+    @Override
     public void delete(String path) throws SQLException {
         try{
             statsRepository.delete(path);

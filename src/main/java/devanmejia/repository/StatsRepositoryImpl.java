@@ -35,8 +35,17 @@ class StatsRepositoryImpl implements StatsRepository {
 
     @Override
     public void save(Stats stats) throws SQLException{
-        long documentId = saveDocument(stats.getPath());
-        saveStats(stats.getWords(), documentId);
+        try{
+            connection.setAutoCommit(false);
+            long documentId = saveDocument(stats.getPath());
+            saveStats(stats.getWords(), documentId);
+        } catch (Exception e){
+            connection.rollback();
+            throw new SQLException("Exception during saving stats. " +
+                    "Transaction was rolled back. " + e.getMessage());
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     private long saveDocument(String path) throws SQLException {
@@ -81,6 +90,25 @@ class StatsRepositoryImpl implements StatsRepository {
             return Optional.of(new Stats(htmlFile, words));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void update(Stats stats) throws SQLException {
+        try {
+            connection.setAutoCommit(false);
+            Optional<Stats> statsOptional = getByPath(stats.getPath());
+            if (statsOptional.isPresent()){
+                delete(stats.getPath());
+            }
+            save(stats);
+        } catch (Exception e){
+            connection.rollback();
+            throw new SQLException("Exception during saving stats. " +
+                    "Transaction was rolled back. " + e.getMessage());
+        }
+        finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     @Override

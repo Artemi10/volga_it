@@ -44,6 +44,13 @@ class StatsRepositoryEventsLogger implements StatsRepository {
     }
 
     @Override
+    public void update(Stats stats) throws SQLException {
+        LOGGER.log(Level.INFO, "Updating word statistics");
+        statsRepository.update(stats);
+        LOGGER.log(Level.INFO, "Word statistics was successfully update");
+    }
+
+    @Override
     public void delete(String path) throws SQLException {
         LOGGER.log(Level.INFO, "Deleting word statistics");
         statsRepository.delete(path);

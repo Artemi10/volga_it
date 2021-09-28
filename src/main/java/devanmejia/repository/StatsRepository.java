@@ -9,4 +9,5 @@ public interface StatsRepository {
     void save(Stats stats) throws SQLException;
     Optional<Stats> getByPath(String path) throws SQLException;
     void delete(String path) throws SQLException;
+    void update(Stats stats) throws SQLException;
 }
