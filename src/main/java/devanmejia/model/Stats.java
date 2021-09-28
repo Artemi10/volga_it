@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Stats {
     private final File htmlFile;
-    private final ConcurrentHashMap<java.lang.String, Integer> words;
+    private final ConcurrentHashMap<String, Integer> words;
 
     public Stats(File htmlFile) {
         this.htmlFile = htmlFile;
@@ -20,7 +20,7 @@ public class Stats {
         this.words = new ConcurrentHashMap<>(words);
     }
 
-    public void addWord(java.lang.String word){
+    public void addWord(String word){
         Integer previousValue = words.putIfAbsent(word, 1);
         synchronized (this){
             if (previousValue != null){
@@ -29,16 +29,22 @@ public class Stats {
         }
     }
 
-    public Map<java.lang.String, Integer> getWords() {
+    public Map<String, Integer> getWords() {
         return Collections.unmodifiableMap(words);
     }
 
-    public java.lang.String getPath(){
+    public String getPath(){
         return htmlFile.getAbsolutePath();
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
+        return getWords().keySet().stream()
+                .map(integer -> integer + " - " + words.get(integer))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String toStringSorted() {
         return getWords().entrySet().stream()
                 .sorted((k1, k2) -> - k1.getValue().compareTo(k2.getValue()))
                 .map(entry -> entry.getKey() + " - " + words.get(entry.getKey()))

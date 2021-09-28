@@ -47,11 +47,11 @@ class HTMLFileService implements FileService {
     }
 
     private static class LineWorker implements Runnable{
-        private final java.lang.String line;
+        private final String line;
         private final Semaphore semaphore;
         private final Stats statistics;
 
-        public LineWorker(java.lang.String line, Semaphore semaphore, Stats statistics) {
+        public LineWorker(String line, Semaphore semaphore, Stats statistics) {
             this.line = line;
             this.semaphore = semaphore;
             this.statistics = statistics;
