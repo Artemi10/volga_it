@@ -16,7 +16,7 @@ public class WordsStatsApp {
         File file = new File("C:\\Users\\lyaha\\OneDrive\\Рабочий стол\\volga_it\\file3.html");
         FileService fileService = FileServiceFactory.createService(file, FileType.HTML);
         Stats stats = fileService.createWordsStatistic();
-        System.out.println(stats);
+        System.out.println(stats.toStringSorted());
         StatsRepository repository = StatsRepositoryFactory.createRepository();
         repository.update(stats);
     }
