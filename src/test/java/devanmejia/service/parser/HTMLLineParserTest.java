@@ -1,6 +1,6 @@
 package devanmejia.service.parser;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +19,8 @@ class HTMLLineParserTest {
     public void parse_empty_line_test() {
         String emptyLine1 = lineParser.parse("").collect(Collectors.joining());
         String emptyLine2 = lineParser.parse(" ").collect(Collectors.joining());
-        Assertions.assertEquals("", emptyLine1);
-        Assertions.assertEquals("", emptyLine2);
+        assertEquals("", emptyLine1);
+        assertEquals("", emptyLine2);
     }
 
     @Test
@@ -31,12 +31,12 @@ class HTMLLineParserTest {
         String line4 = lineParser.parse("<input type=\"text\">").collect(Collectors.joining());
         String line5 = lineParser.parse("<div>&nbsp; </div>").collect(Collectors.joining());
         String line6 = lineParser.parse("<div>&nbsp;</div>").collect(Collectors.joining());
-        Assertions.assertEquals("", line1);
-        Assertions.assertEquals("", line2);
-        Assertions.assertEquals("", line3);
-        Assertions.assertEquals("", line4);
-        Assertions.assertEquals("", line5);
-        Assertions.assertEquals("", line6);
+        assertEquals("", line1);
+        assertEquals("", line2);
+        assertEquals("", line3);
+        assertEquals("", line4);
+        assertEquals("", line5);
+        assertEquals("", line6);
     }
 
     @Test
@@ -44,9 +44,9 @@ class HTMLLineParserTest {
         String line1 = lineParser.parse("<div>How&nbsp;are&nbsp;you</div>").collect(Collectors.joining(", "));
         String line2 = lineParser.parse("<div>How&nbsp;are</div>").collect(Collectors.joining(", "));
         String line3 = lineParser.parse("<div>&nbsp;How&nbsp;&nbsp;&nbsp;are&nbsp;</div>").collect(Collectors.joining(", "));
-        Assertions.assertEquals("How, are, you", line1);
-        Assertions.assertEquals("How, are", line2);
-        Assertions.assertEquals("How, are", line3);
+        assertEquals("How, are, you", line1);
+        assertEquals("How, are", line2);
+        assertEquals("How, are", line3);
     }
 
     @Test
@@ -57,11 +57,11 @@ class HTMLLineParserTest {
         String line4 = lineParser.parse("<div>How&nbsp;<span>are</span>&nbsp;you</div>").collect(Collectors.joining(", "));
         String line5 = lineParser.parse("<li>&nbsp;Chapter 5 of Roy Fielding&rsquo;s dissertation&nbsp;<a rel=\"nofollow\" href=\"http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm\">&laquo;Representational State Transfer (REST)&raquo;</a></li>\n")
                 .collect(Collectors.joining(", "));
-        Assertions.assertEquals("How, are, you", line1);
-        Assertions.assertEquals("Howare, you", line2);
-        Assertions.assertEquals("Howareyou", line3);
-        Assertions.assertEquals("How, are, you", line4);
-        Assertions.assertEquals("Chapter, 5, of, Roy, Fielding’s, dissertation, State, Transfer, REST", line5);
+        assertEquals("How, are, you", line1);
+        assertEquals("Howare, you", line2);
+        assertEquals("Howareyou", line3);
+        assertEquals("How, are, you", line4);
+        assertEquals("Chapter, 5, of, Roy, Fielding’s, dissertation, State, Transfer, REST", line5);
     }
 
 }
