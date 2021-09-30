@@ -10,4 +10,4 @@
     1. скачать образ базы даных с уже необходиммыми таблицами для сохранения статистики, используя команду: docker pull devanmejia/volga_it
     2. запустить контайнер базы данных на порту 3310 команндой: docker run -p 3310:3306 devanmejia/volga_it
     3. скачать jar файл с собранным проектом по ссылке: https://github.com/Artemi10/volga_it/blob/master/target/volga_it-1.0-SNAPSHOT.jar
-    4. запустить скаченный jar командой: java -jar volga_it-1.0-SNAPSHOT.jar
+    4. запустить скаченный jar командой: java -Dfile.encoding=UTF-8 -jar volga_it-1.0-SNAPSHOT.jar
