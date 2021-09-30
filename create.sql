@@ -1,3 +1,6 @@
+create schema if not exists my_schema;
+use my_schema;
+
 create table documents
 (
     path varchar(256) not null,
